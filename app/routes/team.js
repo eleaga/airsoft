@@ -101,7 +101,7 @@ module.exports = function (app) {
 
     Team.find(req.params.id, function(cb){
       if(cb){
-        res.render('team/show', {team: cb});  
+        res.render('team/show', {team: cb.team, members: cb.members});  
       }
       else{
         res.send('Usuario não existe.');

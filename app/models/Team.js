@@ -1,6 +1,7 @@
 var Team = require('./TeamSchema.js');
 var pagination = require('../common/pagination.js');
 var User = require('../models/User.js');
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 module.exports = {
 
@@ -44,13 +45,21 @@ module.exports = {
   },
 
   find: function(id, cb){
-    var promise = Team.findById(id).exec();
-    
-    promise.then(function(team) {
-      
-      cb(team);
 
-    },
+
+    var members = User.find({team: new ObjectId(id)}).exec();
+    var promise = Team.findById(id).exec();
+
+
+    promise
+      .then(function(team) {
+        members.then(function(member){
+          time={members:member, team: team};
+          console.log(time);
+          cb(time);
+        })
+      },
+
       function(err) {
         cb(false);
       }
