@@ -1,0 +1,33 @@
+extends ../layout 
+
+block content
+	div.container
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				h1.text-center.login-title Olá #{user.name}
+					div.signup-wall
+						form(class='form-signin', action='', method='POST', enctype="multipart/form-data")
+							
+							label(for='picture') Foto
+							input(type='file', id='picture', name='image', class='form-control nomargin',)
+
+							label(for='password') Senha
+							input(type='password', id='password', name='password', class='form-control nomargin', placeholder='Password')
+
+							label(for='email') Email
+							input(type='email', id='email', name='email', class='form-control', value=user.email)
+							
+							label(for='name') Nome
+							input(type='name', id='name', name='name', class='form-control', value=user.name)
+
+							label(for='team') Time
+							input(type='text', id='team', name='team', class='form-control', value=user.team)
+							
+							label(for='type') Tipo
+							input(type='text', id="type", name='type', class='form-control', value=user.type)
+							
+							button(class='btn btn-lg btn-primary btn-block', type='submit') Salvar
+							span.clearfix
+					#message
+						if message
+							h1.text-center.error-message #{message}

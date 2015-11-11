@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  div.row
+    div.col.s12
+    h3.text-center.login-title Preencha o formulário abaixo, para ter acesso ao portal.
+
+    #message
+      if message
+        h4.text-center.error-message #{message}
+        
+    div.signup-wall
+      form(class='form-signin', action='/signup', method='POST')
+
+        label(for='name') Nome
+        input(type='text', id='name' name='name', class='form-control', placeholder='Nome', autofocus required)
+
+
+        label(for='username') Usuario
+        input(type='text', name='username', id='username', class='form-control', placeholder='Usuario', autofocus required)
+
+        label(for='password') Senha
+        input(type='password', id='password', name='password', class='form-control nomargin', placeholder='Senha' required)
+
+        div.row
+          div.col.s4
+            <div class="g-recaptcha" data-sitekey="6Lfzdw8TAAAAAMVTT14M3g50mNXKll1qrAc7nIma"></div>
+
+          div.col.s8
+            button(class='btn', type='submit') Registrar
+      <script src='https://www.google.com/recaptcha/api.js'></script>

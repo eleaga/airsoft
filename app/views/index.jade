@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  div.row
+    div.col.s12
+      h2 Bem vindo guerreiro!
+      h5 Digite seu usuário e senha ou entre usando o seu facebook
+
+  div.row
+    div.col.s6.right-align
+        form(class='form-signin', action='/login', method='POST')
+          input(type='text', name='username' class='form-control', placeholder='Username',required, autofocus)
+          input(type='password', name='password' class='form-control', placeholder='Password', required)
+          a(href='/signup', class='waves-effect waves-teal btn-flat') Criar conta 
+          button(class='waves-effect btn', type='submit') acessar
+        #message
+        if message
+          h1.text-center.error-message #{message}
+
+    div.col.s6
+        a(href='/auth/facebook') <img src='images/face_logo.png'> Entrar com Facebook

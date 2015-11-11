@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	div.container
+		div.row
+			div.col-sm-6.col-md-4.col-md-offset-4
+				#user
+					h1.text-center.login-title Perfil de #{user.name}:
+						div.signup-wall
+							ul.user-details
+								li 
+									img(src=user.picture width="200px")
+								li Email    ---> #{user.email}
+								li Nome ---> #{user.name} 
+								li Time ---> #{user.team} 
+								li Tipo ---> #{user.type}
+						a(href='/player/edit', class='text-center new-account') Editar
+						a(href='/signout', class='text-center new-account') Sair

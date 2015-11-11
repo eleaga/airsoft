@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  div.row
+    h3 
+    div.col.s4
+      img(src=player.picture class='responsive-img')
+    
+    div.col.s8
+      h3 #{player.name} 
+        if player.team
+          player.team.name
+          a(href='/team/'+player.team.id) (#{player.team.name})
+
+      div.votes
+        span.vote(player=player._id value='1') (#{player.positive}) recomendar |  
+        span.vote(player=player._id value='0') (#{player.negative}) negativar
+
+      div.row
+        div.col.s12
+          p Email: #{player.email}
+          p Tipo: #{player.type}
+          p Cidade: #{player.city} 
+            if player.uf 
+              span - #{player.uf}
+
+          p Sobre: 
+          pre #{player.about} 
+          

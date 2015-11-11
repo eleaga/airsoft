@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+    div.row
+    h3.
+        Times:
+
+    div.row
+
+      form(action='', method='GET')
+        div.col.s5
+          label(for='filter') Buscar por nome:
+          input(type='text', id='filter', name='filter', class='validate', placeholder='Nome' require)
+
+        div.col.s7
+          button(class='btn', type='submit') Buscar
+        
+    - each team, i in teams
+          div.col.s12.m8.offset-m2.l6.offset-l3
+            div.card-panel.grey.lighten-5.z-depth-1
+              div.row.valign-wrapper
+                
+                div.col.s2 
+                  a(href='/team/#{team._id}')
+                    img(src=team.picture class="responsive-img")
+                div.col.s10
+                  h5
+                    a(href='/team/#{team._id}') #{team.name}
+                  p Cidade: #{team.city} 
+                      if team.uf 
+                        span - #{team.uf}
+
+    div.row
+      div.col.s12
+
+        if teams.count > 1
+          ul.pagination
+            if page > 1  
+            
+            - for (var i=0; i<teams.count; i++)
+
+              li(class= page == i || !page && i==0 ? "active" : "waves-effect")
+                if(filter)
+                  a(href="?page=#{i}&filter=#{filter}") #{i+1}
+                else
+                  a(href="?page=#{i}") #{i+1}
+          
+

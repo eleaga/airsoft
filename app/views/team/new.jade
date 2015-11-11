@@ -1,0 +1,30 @@
+extends ../layout 
+
+block content
+    div.container
+        div.row
+            div.col-sm-6.col-md-4.col-md-offset-4
+                h1.text-center.login-title Criar time
+                    div.signup-wall
+                        form(class='form-signin', action='', method='POST', enctype="multipart/form-data")
+                            
+                            label(for='name') Nome
+                            input(type='name', id='name', name='name', class='form-control')
+
+                            label(for='picture') Foto
+                            input(type='file', id='picture', name='image', class='form-control nomargin',)
+
+                            label(for='email') Email
+                            input(type='email', id='email', name='email', class='form-control')
+
+                            label(for='team') Cidade
+                            input(type='text', id='city', name='city', class='form-control')
+                            
+                            label(for='type') Estado
+                            input(type='text', id="uf", name='uf', class='form-control')
+                            
+                            button(class='btn btn-lg btn-primary btn-block', type='submit') Salvar
+                            span.clearfix
+                    #message
+                        if message
+                            h1.text-center.error-message #{message}

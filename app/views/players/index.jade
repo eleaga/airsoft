@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+    div.row
+    h3.
+        Jogadores:
+
+    div.row
+
+      form(action='', method='GET')
+        div.col.s5
+          label(for='filter') Buscar por nome:
+          input(type='text', id='filter', name='filter', class='validate', placeholder='Nome' require)
+
+        div.col.s7
+          button(class='btn', type='submit') Buscar
+        
+    - each player, i in players
+          div.col.s12.m8.offset-m2.l6.offset-l3
+            div.card-panel.grey.lighten-5.z-depth-1
+              div.row.valign-wrapper
+                
+                div.col.s2 
+                  a(href='/player/#{player._id}')
+                    img(src=player.picture class="responsive-img")
+                div.col.s10
+                  h5
+                    a(href='/player/#{player._id}') #{player.name}
+                    if player.team
+                      player.team.name
+                      a(href='/team/'+player.team.id) (#{player.team.name})
+                  p Cidade: #{player.city} 
+                      if player.uf 
+                        span - #{player.uf}
+
+    div.row
+      div.col.s12
+
+        if players.count > 1
+          ul.pagination
+            if page > 1  
+            
+            - for (var i=0; i<players.count; i++)
+
+              li(class= page == i || !page && i==0 ? "active" : "waves-effect")
+                if(filter)
+                  a(href="?page=#{i}&filter=#{filter}") #{i+1}
+                else
+                  a(href="?page=#{i}") #{i+1}
+          
+

@@ -1,0 +1,16 @@
+#extends ../layout
+
+block content
+    h1.
+        #{title}
+    form#formAddPlayer(name="addplayer",method="post",action="/players")
+        p Nome: 
+            input#inputName(type="text", placeholder="ex. John Smith", name="name")
+        p Time:
+            input#inputBadge(type="text", placeholder="Liga da justiça", name="team")
+        p Nascimento: 
+            input#inputDob(type="date", name="age")
+        p Tipo?: 
+            input#inputBadge(type="number", placeholder="Sniper", name="team")
+        p
+            button#btnSubmit(type="submit") submit

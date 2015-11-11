@@ -1,0 +1,19 @@
+{
+  "name": "airsoft",
+  "description": "Bower do airsoft",
+  "main": "",
+  "directory": "public/components",
+  "authors": [
+    "Luiz Henrique Bezerra <lhbezerra@hotmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.7",
+    "bootstrap": "~3.3.5",
+    "typeahead.js": "~0.11.1",
+    "Materialize": "materialize#~0.97.1"
+  }
+}
