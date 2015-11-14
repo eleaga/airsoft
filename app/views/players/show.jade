@@ -13,8 +13,8 @@ block content
           a(href='/team/'+player.team.id) (#{player.team.name})
 
       div.votes
-        span.vote(player=player._id value='1') (#{player.positive}) recomendar |  
-        span.vote(player=player._id value='0') (#{player.negative}) negativar
+        span.vote(to=player._id value='1') (#{player.positive}) recomendar |  
+        span.vote(to=player._id value='0') (#{player.negative}) negativar
 
       div.row
         div.col.s12

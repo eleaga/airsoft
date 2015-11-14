@@ -1,16 +1,20 @@
 $('.vote').click(function(){
 	var button = this;
 	var value = $(this).attr('value');
-	var to = $(this).attr('player');
+	var to = $(this).attr('to');
 
-	Materialize.toast('Voto salvo.', 4000) 
 	$.ajax({
 	  type: "POST",
 	  url: '/vote',
 	  data: {to: to, value: value}
-	}).done(function() {
-		$( '.vote' ).removeClass( "disable" );
-		$( button ).addClass( "disable" );
+	}).done(function(voto) {
+		if(voto==0){
+				Materialize.toast('Voto não pode ser salvo.', 4000) 
+		}else{
+				Materialize.toast('Voto salvo.', 4000) 
+		}
+		// $( '.vote' ).removeClass( "disable" );
+		// $( button ).addClass( "disable" );
 	});
 
 });
@@ -38,7 +42,6 @@ $('input#team').keyup(function(){
 });
 
 $('#dropdownTime').on('click', 'li', function(){
-	console.log('click');
 	id = $(this).find('span').attr('value');
 	nome = $(this).find('span').html();
 	console.log(nome)

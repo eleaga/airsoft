@@ -1,3 +1,4 @@
+var Vote = require('../models/Vote.js');
 var Team = require('./TeamSchema.js');
 var pagination = require('../common/pagination.js');
 var User = require('../models/User.js');
@@ -54,9 +55,17 @@ module.exports = {
     promise
       .then(function(team) {
         members.then(function(member){
-          time={members:member, team: team};
-          console.log(time);
-          cb(time);
+          time={members:member, team: team};     
+
+          //contabiliza os votos
+          Vote.total(id, 0, function(voteCb){
+            team.negative = voteCb;
+            Vote.total(id, 1, function(voteCb){
+              team.positive = voteCb;
+              cb(time);
+            })
+          })
+
         })
       },
 

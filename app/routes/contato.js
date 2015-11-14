@@ -15,6 +15,6 @@ module.exports = function (app) {
   	.post(verificaAutenticacao, controller.salvaContato)
 
   app.route('/contatos/:id')
-	.get(verificaAutenticacao, controller.obtemContato)
-	.delete(verificaAutenticacao, controller.removeContato);
+  	.get(verificaAutenticacao, controller.obtemContato)
+  	.delete(verificaAutenticacao, controller.removeContato);
 };

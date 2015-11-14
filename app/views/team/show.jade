@@ -5,8 +5,9 @@ block content
         Infophoto #{team.picture}
     p Name: #{team.name}
 
-    div.vote(user=team._id value='1') recomendar
-    div.vote(user=team._id value='0') negativar
+    div.votes
+        span.vote(to=team._id value='1') (#{team.positive}) recomendar |  
+        span.vote(to=team._id value='0') (#{team.negative}) negativar
 
     h4 Membros
     each member in members
