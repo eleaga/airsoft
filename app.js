@@ -51,6 +51,7 @@ var auth = require('./app/routes/auth')(passport);
 var player = require('./app/routes/player')(passport);
 var vote = require('./app/routes/vote')(passport);
 var team = require('./app/routes/team')(passport);
+var video = require('./app/routes/video')(passport);
 // var users = require('./app/routes/users');
 
 // view engine setup
@@ -75,6 +76,7 @@ app.use('/auth', auth);
 app.use('/player', player);
 app.use('/vote', vote);
 app.use('/team', team);
+app.use('/video', video);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
