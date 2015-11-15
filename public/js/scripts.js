@@ -19,7 +19,6 @@ $('.vote').click(function(){
 
 });
 	
-
 $('input#team').keyup(function(){
 	var team = $(this).val();
 	$('#teamId').val('');
@@ -44,9 +43,16 @@ $('input#team').keyup(function(){
 $('#dropdownTime').on('click', 'li', function(){
 	id = $(this).find('span').attr('value');
 	nome = $(this).find('span').html();
-	console.log(nome)
-	console.log(id)
 	$('#team').val(nome);
 	$('#teamId').val(id);
 	$('#dropdownTime').hide();
+})
+
+$('.add_video').on('click', function(){
+
+	console.log('aqui')
+	var count = $('.box_videos_add input').length+1;
+	console.log(count)
+	$('<input>').attr({'type':'text', 'name': 'video'+count, 'placeholder': 'URL do youtube' }).appendTo('.box_videos_add');
+
 })
