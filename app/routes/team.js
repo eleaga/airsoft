@@ -45,7 +45,7 @@ module.exports = function (app) {
       // checkAuth.auth(req,res);  
 
       // , owner: req.user.id
-      data = {name : fields.name, city : fields.city, uf : fields.uf, email : fields.email};
+      data = {name : fields.name, city : fields.city, uf : fields.uf, email : fields.email, owner : req.user.id};
       Team.save(data, function(id){
 
         if(files.image.size > 100){

@@ -4,6 +4,11 @@ block content
 	div.row
 		h1.text-center.login-title Olá #{user.name}
 
+		span.clearfix
+		#message
+			if message
+				h1.text-center.error-message #{message}
+
 
 		form(class='col s12', action='/video/save', method='POST')
 			div.row.videos_edit.card-panel
@@ -19,38 +24,34 @@ block content
 		h5 Informações pessoais:
 		form(class='col s12', action='', method='POST', enctype="multipart/form-data")
 
-		label(for='picture') Foto
-		input(type='file', id='picture', name='image', class='validate nomargin',)
-		br
-		br
-		label(for='password') Senha
-		input(type='password', id='password', name='password', class='validate nomargin', placeholder='Password')
-		
-		label(for='nome') Nome
-		input(type='text', id='nome', name='name', class='validate', value=user.name)
+			label(for='picture') Foto
+			input(type='file', id='picture', name='image', class='validate nomargin',)
+			br
+			br
+			label(for='password') Senha
+			input(type='password', id='password', name='password', class='validate nomargin', placeholder='Password')
+			
+			label(for='nome') Nome
+			input(type='text', id='nome', name='name', class='validate', value=user.name)
 
-		label(for='email') Email
-		input(type='email', id='email', name='email', class='validate', value=user.email, placeholder='Email')
+			label(for='email') Email
+			input(type='email', id='email', name='email', class='validate', value=user.email, placeholder='Email')
 
-		label(for='team') Time
-		input(type='text', id='team', name='team', class='validate', value=user.teamName, placeholder='Time', autocomplete='off')
-		ul#dropdownTime.dropdown-content.active
-		input(type="hidden" name="teamId" id="teamId" value=user.teamId)
+			label(for='team') Time
+			input(type='text', id='team', name='team', class='validate', value=user.teamName, placeholder='Time', autocomplete='off')
+			ul#dropdownTime.dropdown-content.active
+			input(type="hidden" name="teamId" id="teamId" value=user.teamId)
 
-		label(for='type') Tipo
-		input(type='text', id="type", name='type', class='validate', value=user.type, placeholder='Ex: sniper, CQB...')
-		
-		label(for='type') Cidade
-		input(type='text', id="city", name='city', class='validate', value=user.city, placeholder='Cidade')
-		
-		label(for='type') Estado
-		input(type='text', id="uf", name='uf', class='validate', value=user.uf, placeholder='Estado')
+			label(for='type') Tipo
+			input(type='text', id="type", name='type', class='validate', value=user.type, placeholder='Ex: sniper, CQB...')
+			
+			label(for='type') Cidade
+			input(type='text', id="city", name='city', class='validate', value=user.city, placeholder='Cidade')
+			
+			label(for='type') Estado
+			input(type='text', id="uf", name='uf', class='validate', value=user.uf, placeholder='Estado')
 
-		label(for='about') Sobre
-		textarea(id="about", name='about', class='materialize-textarea', placeholder='Conte um pouco sobre você, seus equipamentos e seus jogos.') #{user.about}
-		
-		button(class='btn', type='submit') Salvar
-		span.clearfix
-		#message
-			if message
-				h1.text-center.error-message #{message}
+			label(for='about') Sobre
+			textarea(id="about", name='about', class='materialize-textarea', placeholder='Conte um pouco sobre você, seus equipamentos e seus jogos.') #{user.about}
+			
+			button(class='btn', type='submit') Salvar

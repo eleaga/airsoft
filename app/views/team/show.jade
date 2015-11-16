@@ -1,14 +1,19 @@
 extends ../layout
 
 block content
-    h1.
-        Infophoto #{team.picture}
-    p Name: #{team.name}
+    p #{team.owner.name}
+    h1 #{team.name}
+    img( src=team.picture )
 
     div.votes
         span.vote(to=team._id value='1') (#{team.positive}) recomendar |  
         span.vote(to=team._id value='0') (#{team.negative}) negativar
 
+    h4 Fundador
+    p
+      a(href="/player/"+team.owner._id) #{team.owner.name}
+
     h4 Membros
     each member in members
-      p <a href="/player/#{member._id}">#{member.name}</a>
+      p
+        a(href="/player/"+member._id) #{member.name}

@@ -49,7 +49,7 @@ module.exports = {
 
 
     var members = User.find({team: new ObjectId(id)}).exec();
-    var promise = Team.findById(id).exec();
+    var promise = Team.findById(id).populate('owner').exec();
 
 
     promise

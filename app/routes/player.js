@@ -6,7 +6,7 @@ var express = require('express'),
 
 var checkAuth = require('../common/checkAuth.js');
 var upload = require('../common/upload.js');
-var Players = require('../models/player.js');
+var Players = require('../models/Player.js');
 var formidable = require('formidable');
 
 module.exports = function (app) {

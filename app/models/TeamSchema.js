@@ -23,7 +23,7 @@ var Schema   = new mongoose.Schema({
   }, 
   owner: {
     type: mongoose.Schema.ObjectId, 
-    ref: 'Contato' 
+    ref: 'User' 
   }
 
 });
