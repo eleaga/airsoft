@@ -14,24 +14,9 @@ block content
 
         div.col.s7
           button(class='btn', type='submit') Buscar
-        
-    - each player, i in players
-          div.col.s12.m8.offset-m2.l6.offset-l3
-            div.card-panel.grey.lighten-5.z-depth-1
-              div.row.valign-wrapper
-                
-                div.col.s2 
-                  a(href='/player/#{player._id}')
-                    img(src=player.picture class="responsive-img")
-                div.col.s10
-                  h5
-                    a(href='/player/#{player._id}') #{player.name}
-                    if player.team
-                      player.team.name
-                      a(href='/team/'+player.team.id) (#{player.team.name})
-                  p Cidade: #{player.city} 
-                      if player.uf 
-                        span - #{player.uf}
+    div.row
+      - each player, i in players
+        include players_list_block.jade
 
     div.row
       div.col.s12

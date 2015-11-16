@@ -1,7 +1,6 @@
 extends ../layout
 
 block content
-    p #{team.owner.name}
     h1 #{team.name}
     img( src=team.picture )
 
@@ -14,6 +13,6 @@ block content
       a(href="/player/"+team.owner._id) #{team.owner.name}
 
     h4 Membros
-    each member in members
-      p
-        a(href="/player/"+member._id) #{member.name}
+    .row
+        each player, i in members
+            include ../players/players_list_block.jade
