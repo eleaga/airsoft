@@ -1,0 +1,16 @@
+div.col.s12.m6.l6
+  div.card-panel.grey.lighten-5.z-depth-1
+    div.row.valign-wrapper
+      
+      div.col.s4 
+        a(href='/player/#{player._id}')
+          img(src=player.picture class="responsive-img")
+      div.col.s8
+        h5
+          a(href='/player/#{player._id}') #{player.name}
+          if player.team
+            player.team.name
+            a(href='/team/'+player.team.id) (#{player.team.name})
+        p Cidade: #{player.city} 
+            if player.uf 
+              span - #{player.uf}
