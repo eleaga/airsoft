@@ -25,7 +25,7 @@ module.exports = function(passport){
 
 		//if user is logedin redirect to home
     	if (req.isAuthenticated()){
-		  res.redirect('/home');
+		  res.redirect('/player/'+req.user.id);
     	}
 
     	// Display the Login page with any flash message, if any

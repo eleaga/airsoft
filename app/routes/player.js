@@ -88,6 +88,7 @@ module.exports = function (app) {
 
     Players.find(req.params.id, function(cb){
       if(cb){
+        console.log(cb)
         res.render('players/show', {player: cb, user: req.user});  
       }
       else{

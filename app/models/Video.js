@@ -1,9 +1,10 @@
 var Video = require('../models/VideoSchema.js');
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 module.exports = {
 
   list: function(id, cb){
-    var promise = Videos.find({from: id});
+    var promise = Video.find({from: new ObjectId(id) });
     
     promise.then(function(videos) {
       

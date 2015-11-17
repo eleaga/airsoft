@@ -1,5 +1,6 @@
 var User = require('../models/User.js');
 var Vote = require('../models/Vote.js');
+var Video = require('../models/Video.js');
 var bCrypt = require('bcrypt-nodejs');
 var pagination = require('../common/pagination.js');
 
@@ -36,12 +37,16 @@ module.exports = {
     var promise = User.findById(id).populate('team').exec();
     
     promise.then(function(user) {
-      console.log(user);
       Vote.total(id, 0, function(voteCb){
         user.negative = voteCb;
         Vote.total(id, 1, function(voteCb){
           user.positive = voteCb;
-          cb(user);
+          Video.list(id,function(videos){
+            user.videos = videos;
+            // console.log(user);
+            cb(user);
+          });
+          
         })
       })
 
