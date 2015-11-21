@@ -7,7 +7,7 @@ block content
       img(src=player.picture class='responsive-img')
     
     div.col.s8
-      h3 #{player.team.name} 
+      h3 #{player.name} 
         if player.team
           player.team.name
           a(href='/team/'+player.team.id) (#{player.team.name})

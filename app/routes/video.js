@@ -10,18 +10,17 @@ module.exports = function (app) {
   
   router.post('/save', function(req, res) {
  
-      console.log(req.body )
-      Video.remove(req.user.id, function(cb){
-              console.log('b');
-        for (i in req.body) { 
-          Video.save(req.user.id, req.body[i], function(result){
-            console.log(result);
-          });
-        }
-        res.redirect('/player/'+req.user.id)
+    Video.save(req.user.id, req.body.link, function(result){
+      res.json(1);
+    });
+
+  })  
+  
+  router.post('/delete', function(req, res) {
+ 
+      Video.remove(req.user.id, req.body.link, function(cb){
+        res.json(1)
       });
-      // console.log('rota video >' +req.user.id +' - '+ req.body.to+' - ' + req.body.value )
-      
 
   })   
 

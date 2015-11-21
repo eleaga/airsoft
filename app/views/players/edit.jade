@@ -13,13 +13,18 @@ block content
 		form(class='col s12', action='/video/save', method='POST')
 			div.row.videos_edit.card-panel
 
-					h5 Videos:
-					div.input-field.box_videos_add
-						i.material-icons.prefix.add_video add
-						input(id="video" type="text" name="video0" placeholder="URL do youtube" class="validate")
-					button(class='btn', type='submit') Salvar
+				h5 Videos:
+				.row
+					.input-field.col.s12.m8
+						input(id="video" type="text" name="video" placeholder="URL do youtube")
+					.btn.col.s12.m3.add_video Salvar
+				.row
+					- each video in user.videos
+						.video
+							span #{video.link} 
+							span(class='btn remove_video' vid=video._id) Remover
 					p
-			
+		
 		
 		h5 Informações pessoais:
 		form(class='col s12', action='', method='POST', enctype="multipart/form-data")

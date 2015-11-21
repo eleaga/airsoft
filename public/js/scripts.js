@@ -49,10 +49,28 @@ $('#dropdownTime').on('click', 'li', function(){
 })
 
 $('.add_video').on('click', function(){
+	var link = $('#video');
+	var linkVal = link.val();
+	link.val('');
+	$.ajax({
+	  type: "POST",
+	  url: '/video/save',
+	  data: {link: linkVal},
+	}).done(function(result){
+		Materialize.toast('Video salvo.', 4000) 
+	});
 
-	console.log('aqui')
-	var count = $('.box_videos_add input').length+1;
-	console.log(count)
-	$('<input>').attr({'type':'text', 'name': 'video'+count, 'placeholder': 'URL do youtube' }).appendTo('.box_videos_add');
+})
+
+$('.remove_video').on('click', function(){
+	var vid = $(this).attr('vid');
+	$(this).parent('.video').hide();
+	$.ajax({
+	  type: "POST",
+	  url: '/video/delete',
+	  data: {link: vid},
+	}).done(function(result){
+		Materialize.toast('Video removido.', 4000) 
+	});
 
 })

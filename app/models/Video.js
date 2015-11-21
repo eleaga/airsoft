@@ -14,11 +14,10 @@ module.exports = {
 
   },
 
-
   save: function(from, link, cb){
-    console.log(from + ', ' +link);
-    // var count = Vote.find({ to : to, from: from }).count();
-
+    if(link==''){
+      cb(0);
+    }else{
       var video = new Video({from: from, link: link});
 
       video.save( function(error, data){
@@ -31,13 +30,11 @@ module.exports = {
         }
 
       });
+    }
   },
 
-  remove: function(from, cb){
-    // var count = Vote.find({ to : to, from: from }).count();
-          console.log('1');
-    Video.remove({ from: from }, function(err) {
-      console.log('a');
+  remove: function(from, vid, cb){
+    Video.remove({ _id: new ObjectId(vid) }, function(err) {
       cb(1);
     });
 

@@ -24,7 +24,11 @@ block content
                 
                 div.col.s2 
                   a(href='/team/#{team._id}')
-                    img(src=team.picture class="responsive-img")
+                    if(team.picture)
+                      img(src=team.picture class="responsive-img")
+                    else
+                      img(src='/images/default-profile.png' class="responsive-img")
+          
                 div.col.s10
                   h5
                     a(href='/team/#{team._id}') #{team.name}

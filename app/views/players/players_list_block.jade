@@ -1,10 +1,14 @@
-div.col.s12.m6.l6
+div.col.s12.m6.l6.player_box
   div.card-panel.grey.lighten-5.z-depth-1
-    div.row.valign-wrapper
+    div.row
       
       div.col.s4 
         a(href='/player/#{player._id}')
-          img(src=player.picture class="responsive-img")
+          if(player.picture)
+            img(src=player.picture class="responsive-img")
+          else
+            img(src='/images/default-profile.png' class="responsive-img")
+
       div.col.s8
         h5
           a(href='/player/#{player._id}') #{player.name}

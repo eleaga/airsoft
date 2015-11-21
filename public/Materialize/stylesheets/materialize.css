@@ -11804,6 +11804,23 @@ select {
   background-color: #4CAF50;
 }
 
+/* line 1, ../sass/components/_player-box.scss */
+.player_box {
+  height: 170px;
+}
+/* line 4, ../sass/components/_player-box.scss */
+.player_box .card-panel {
+  height: 160px;
+}
+/* line 8, ../sass/components/_player-box.scss */
+.player_box .row {
+  margin-bottom: 0;
+}
+/* line 12, ../sass/components/_player-box.scss */
+.player_box img {
+  max-height: 120px;
+}
+
 /* ==========================================================================
    $BASE-PICKER
    ========================================================================== */
