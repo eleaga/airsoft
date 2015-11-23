@@ -23,26 +23,6 @@ module.exports = function(passport){
 
 	/* GET login page. */
 	router.get('/', function(req, res) {
-
-                            var params = {'username': '1234'};
-
-                    var query = [
-                        'MATCH (n:Players', 
-                            '{username:{username}}',
-                        ') return n;',
-                    ].join('\n');
-
-                    neoDb.query(
-                        query, params, function (err, resp) {
-
-                            if (err) {
-                              console.log(err);
-                            } else {
-                              console.log(resp);
-                            }
-                          }
-                    );
-
 		// var users = User.find().exec()
 		// console.log(req.isAuthenticated());
 

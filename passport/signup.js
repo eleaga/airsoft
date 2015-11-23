@@ -51,8 +51,8 @@ module.exports = function(passport){
                                         console.log('-------Error in Saving user: '+err);  
                                         throw err;  
                                     }
-                                    console.log(resp[0].p);    
-                                    return done(null, resp);
+                                    console.log(resp[0].p._data.metadata);    
+                                    return done(null, resp[0].p._data.metadata);
                                 }
                             );
 
