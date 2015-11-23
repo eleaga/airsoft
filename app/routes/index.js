@@ -6,6 +6,9 @@ var formidable = require('formidable');
 var util = require('util');
 var LocalStrategy = require('passport-local').Strategy;
 
+var neo4j = require('neo4j');
+var neoDb = new neo4j.GraphDatabase('http://neo4j:root@localhost:7474');
+
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
 	// Passport adds this method to request object. A middleware is allowed to add properties to
@@ -20,6 +23,26 @@ module.exports = function(passport){
 
 	/* GET login page. */
 	router.get('/', function(req, res) {
+
+                            var params = {'username': '1234'};
+
+                    var query = [
+                        'MATCH (n:Players', 
+                            '{username:{username}}',
+                        ') return n;',
+                    ].join('\n');
+
+                    neoDb.query(
+                        query, params, function (err, resp) {
+
+                            if (err) {
+                              console.log(err);
+                            } else {
+                              console.log(resp);
+                            }
+                          }
+                    );
+
 		// var users = User.find().exec()
 		// console.log(req.isAuthenticated());
 
@@ -41,7 +64,6 @@ module.exports = function(passport){
 
 	/* GET Registration Page */
 	router.get('/signup', function(req, res){
-		console.log('get');
 		res.render('register',{message: req.flash('message')});
 	});
 

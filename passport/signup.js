@@ -4,56 +4,68 @@ var bCrypt = require('bcrypt-nodejs');
 var util = require('util');
 var https = require('https');
 
+
+var neo4j = require('neo4j');
+var neoDb = new neo4j.GraphDatabase('http://neo4j:root@localhost:7474');
+
+
 module.exports = function(passport){
 
 	passport.use('signup', new LocalStrategy({
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) {
-                        console.log('1');
 
             findOrCreateUser = function(){
-                // find a user in Mongo with provided username
-                User.find({ 'username' :  username }, function(err, user) {
-                    // In case of any error, return using the done method
-                    if (err){
-                        console.log('Error in SignUp: '+err);
-                        return done(null, false, req.flash('message','Guerreiro! Tenten novamente.'));
-                    }
-                    // already exists
-                    if (user[0]) {
+
+                var params = {'username': username};
+
+                var query = [
+                    'MATCH (n:Players', 
+                    '{username:{username}}',
+                    ') return n;',
+                ].join('\n');
+
+                neoDb.query(query, params, function (err, resp) {
+
+                    if(resp && resp[0]){
+
                         console.log('Guerreiro! Este nome já está em uso');
                         return done(null, false, req.flash('message','Guerreiro! Este nome já está em uso'));
-                    } else {
-                        // if there is no user with that email
-                        // create the user
+
+                    }else{
 
                         verifyRecaptcha(req.body["g-recaptcha-response"], function(success) {
-                                if (success) {
+                        if (success) {
+                            var params = {'username': username, password: createHash(password), name: req.body.name};
 
-                                    var newUser = new User();
+                            var query = [
+                                'CREATE (p:Players ',
+                                    '{ username: {username}, password: {password}, name: {name} })',
+                                'return p;',
+                            ].join('\n');
 
-                                    // set the user's local credentials
-                                    newUser.username = username;
-                                    newUser.password = createHash(password);
-                                    newUser.name = req.body.name;
-
-                                    // save the user
-                                    newUser.save(function(err) {
-                                        if (err){
-                                            console.log('-------Error in Saving user: '+err);  
-                                            throw err;  
-                                        }
-                                        console.log('User Registration succesful');    
-                                        return done(null, newUser);
-                                    });
-
-                                } else {
-                                    return  done(null, false);
+                            neoDb.query(
+                                query, params, function (err, resp) {
+                                    if (err){
+                                        console.log('-------Error in Saving user: '+err);  
+                                        throw err;  
+                                    }
+                                    console.log(resp[0].p);    
+                                    return done(null, resp);
                                 }
-                        });
-                    }
+                            );
+
+                        } else {
+                            return  done(null, false);
+                        }
                 });
+
+                              
+                        }
+                    }
+                );
+
             };
             // Delay the execution of findOrCreateUser and execute the method
             // in the next tick of the event loop

@@ -23,6 +23,7 @@
     "mongoose": "^4.1.11",
     "morgan": "~1.6.1",
     "multer": "^1.0.6",
+    "neo4j": "^1.1.1",
     "passport": "^0.3.0",
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
