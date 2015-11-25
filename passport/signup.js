@@ -1,70 +1,47 @@
 var LocalStrategy   = require('passport-local').Strategy;
-var User = require('../app/models/User');
 var bCrypt = require('bcrypt-nodejs');
 var util = require('util');
 var https = require('https');
 
-
-var neo4j = require('neo4j');
-var neoDb = new neo4j.GraphDatabase('http://neo4j:root@localhost:7474');
-
+var User = require('../app/models/UserNeo4');
 
 module.exports = function(passport){
 
-	passport.use('signup', new LocalStrategy({
+    passport.use('signup', new LocalStrategy({
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) {
 
             findOrCreateUser = function(){
 
-                var params = {'username': username};
-
-                var query = [
-                    'MATCH (n:Players', 
-                    '{username:{username}}',
-                    ') return n;',
-                ].join('\n');
-
-                neoDb.query(query, params, function (err, resp) {
-
-                    if(resp && resp[0]){
-
+                User.get(username, function (results) {
+                    // already exists
+                    console.log(results);
+                    if (results.length) {
                         console.log('Guerreiro! Este nome já está em uso');
                         return done(null, false, req.flash('message','Guerreiro! Este nome já está em uso'));
-
-                    }else{
+                    } else {
+                        // if there is no user with that email
+                        // create the user
 
                         verifyRecaptcha(req.body["g-recaptcha-response"], function(success) {
-                        if (success) {
-                            var params = {'username': username, password: createHash(password), name: req.body.name};
+                            if (success) {
 
-                            var query = [
-                                'CREATE (p:Players ',
-                                    '{ username: {username}, password: {password}, name: {name} })',
-                                'return p;',
-                            ].join('\n');
+                                // set the user's local credentials
+                                var params = {username: username, password: createHash(password), name: req.body.name};
 
-                            neoDb.query(
-                                query, params, function (err, resp) {
-                                    if (err){
-                                        console.log('-------Error in Saving user: '+err);  
-                                        throw err;  
-                                    }
-                                    console.log(resp[0].p._data.metadata);    
-                                    return done(null, resp[0].p._data.metadata);
-                                }
-                            );
+                                User.create( params, function (resp) {
+                                    // console.log(resp);    
+                                    return done(null, resp);
+                                });
 
-                        } else {
-                            return  done(null, false);
-                        }
-                });
-
-                              
-                        }
+                            } else {
+                                return  done(null, false);
+                            }
+                        });
                     }
-                );
+
+                });
 
             };
             // Delay the execution of findOrCreateUser and execute the method

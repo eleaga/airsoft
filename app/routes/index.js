@@ -6,8 +6,7 @@ var formidable = require('formidable');
 var util = require('util');
 var LocalStrategy = require('passport-local').Strategy;
 
-var neo4j = require('neo4j');
-var neoDb = new neo4j.GraphDatabase('http://neo4j:root@localhost:7474');
+var neo4 = require('../models/UserNeo4');
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -23,8 +22,9 @@ module.exports = function(passport){
 
 	/* GET login page. */
 	router.get('/', function(req, res) {
-		// var users = User.find().exec()
-		// console.log(req.isAuthenticated());
+		neo4.findById('12', function(result){
+			console.log(result);
+		});
 
 		//if user is logedin redirect to home
     	if (req.isAuthenticated()){
