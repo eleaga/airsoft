@@ -25,12 +25,10 @@ block content
               span - #{player.uf}
 
           p Sobre: 
-          pre #{player.about} 
-          
+          pre #{player.about}           
 
-      div.row
-        div.col.s12
-          h1 Videos: 
+  div.row
+    h1 Videos: 
 
-          - each video in player.videos
-            .video #{video.link}
+    - each video in player.videos        
+      include block/youtube.jade

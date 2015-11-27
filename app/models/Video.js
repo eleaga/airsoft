@@ -1,4 +1,5 @@
 var Video = require('../models/VideoSchema.js');
+var Youtube = require('../common/youtube.js');
 var ObjectId = require('mongoose').Types.ObjectId; 
 
 module.exports = {
@@ -18,8 +19,10 @@ module.exports = {
     if(link==''){
       cb(0);
     }else{
-      var video = new Video({from: from, link: link});
-
+      link = Youtube.youtubeParser(link);
+      if(link){
+        var video = new Video({from: from, link: link});
+      }
       video.save( function(error, data){
 
         if(error){
