@@ -9000,78 +9000,73 @@ small {
 }
 /* line 52, ../sass/components/_cards.scss */
 .card.small .card-image {
-  height: 150px;
+  height: 250px;
+  text-align: center;
+  background: #263238;
 }
-/* line 55, ../sass/components/_cards.scss */
+/* line 57, ../sass/components/_cards.scss */
 .card.small .card-content {
   height: 150px;
 }
-/* line 61, ../sass/components/_cards.scss */
+/* line 63, ../sass/components/_cards.scss */
 .card.medium {
   height: 400px;
 }
-/* line 64, ../sass/components/_cards.scss */
+/* line 66, ../sass/components/_cards.scss */
 .card.medium .card-image {
   height: 250px;
 }
-/* line 67, ../sass/components/_cards.scss */
+/* line 69, ../sass/components/_cards.scss */
 .card.medium .card-content {
   height: 150px;
 }
-/* line 72, ../sass/components/_cards.scss */
+/* line 74, ../sass/components/_cards.scss */
 .card.large {
   height: 500px;
 }
-/* line 75, ../sass/components/_cards.scss */
+/* line 77, ../sass/components/_cards.scss */
 .card.large .card-image {
   height: 330px;
 }
-/* line 78, ../sass/components/_cards.scss */
+/* line 80, ../sass/components/_cards.scss */
 .card.large .card-content {
   height: 170px;
 }
-/* line 84, ../sass/components/_cards.scss */
+/* line 86, ../sass/components/_cards.scss */
 .card .card-image {
   position: relative;
 }
-/* line 88, ../sass/components/_cards.scss */
+/* line 90, ../sass/components/_cards.scss */
 .card .card-image img {
-  display: block;
-  border-radius: 2px 2px 0 0;
-  position: relative;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
+  height: 100%;
 }
-/* line 99, ../sass/components/_cards.scss */
+/* line 94, ../sass/components/_cards.scss */
 .card .card-image .card-title {
   position: absolute;
   bottom: 0;
   left: 0;
   padding: 20px;
 }
-/* line 108, ../sass/components/_cards.scss */
+/* line 103, ../sass/components/_cards.scss */
 .card .card-content {
   padding: 20px;
   border-radius: 0 0 2px 2px;
 }
-/* line 113, ../sass/components/_cards.scss */
+/* line 108, ../sass/components/_cards.scss */
 .card .card-content p {
   margin: 0;
   color: inherit;
 }
-/* line 117, ../sass/components/_cards.scss */
+/* line 112, ../sass/components/_cards.scss */
 .card .card-content .card-title {
   line-height: 48px;
 }
-/* line 122, ../sass/components/_cards.scss */
+/* line 117, ../sass/components/_cards.scss */
 .card .card-action {
   border-top: 1px solid rgba(160, 160, 160, 0.2);
   padding: 20px;
 }
-/* line 126, ../sass/components/_cards.scss */
+/* line 121, ../sass/components/_cards.scss */
 .card .card-action a {
   color: #ffab40;
   margin-right: 20px;
@@ -9082,11 +9077,11 @@ small {
   transition: color 0.3s ease;
   text-transform: uppercase;
 }
-/* line 132, ../sass/components/_cards.scss */
+/* line 127, ../sass/components/_cards.scss */
 .card .card-action a:hover {
   color: #ffd8a6;
 }
-/* line 136, ../sass/components/_cards.scss */
+/* line 131, ../sass/components/_cards.scss */
 .card .card-reveal {
   padding: 20px;
   position: absolute;
@@ -9098,7 +9093,7 @@ small {
   z-index: 1;
   display: none;
 }
-/* line 147, ../sass/components/_cards.scss */
+/* line 142, ../sass/components/_cards.scss */
 .card .card-reveal .card-title {
   cursor: pointer;
   display: block;
@@ -11807,6 +11802,7 @@ select {
 /* line 1, ../sass/components/_player-box.scss */
 .player_box {
   height: 170px;
+  margin: 0.4rem 0;
 }
 /* line 4, ../sass/components/_player-box.scss */
 .player_box .card-panel {
@@ -12671,4 +12667,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* line 1, ../sass/components/_general.scss */
+.add_video {
+  margin-top: 26px;
 }

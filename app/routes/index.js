@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/User');
+var Teams = require('../models/Team');
+var Player = require('../models/Player');
+var Video = require('../models/Video');
 var bCrypt = require('bcrypt-nodejs');
 var formidable = require('formidable');
 var util = require('util');
+var Promise = require('promise');
 var LocalStrategy = require('passport-local').Strategy;
+var checkAuth = require('../common/checkAuth.js');
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -25,7 +29,7 @@ module.exports = function(passport){
 
 		//if user is logedin redirect to home
     	if (req.isAuthenticated()){
-		  res.redirect('/player/'+req.user.id);
+		  res.redirect('/home');
     	}
 
     	// Display the Login page with any flash message, if any
@@ -54,7 +58,14 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/home', isAuthenticated, function(req, res){
-		res.render('home', { user: req.user });
+	    checkAuth.auth(req,res);  
+		var players = Player.last(6)
+		var teams = Teams.last(4)
+		var videos = Video.last(6)
+
+		Promise.all([teams, players, videos]).done(function (results) {	
+			res.render('home', { teams: results[0], players: results[1], videos: results[2], user: req.user });
+		});
 	});
 
 	/* Handle Logout */

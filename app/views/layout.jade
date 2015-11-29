@@ -11,14 +11,17 @@ html
         a(href="/" class="brand-logo") 
           span Logo
           ul#nav-mobile.right.hide-on-med-and-down
+            li <a href="/">Home</a></li>
             li <a href="/player">Jogadores</a></li>
             li <a href="/team">Times</a></li>
-            li <a href="/video">Videos</a></li>
             if(user)
               li <a href="/player/edit">Editar conta</a></li>
-              li <a href="/player/logout">sair</a></li>
+              li <a href="/player/logout">Sair</a></li>
         
     div.container
+      #message
+      if message
+        h1.text-center.error-message #{message}
       block content
 
     script(src='/components/jquery/dist/jquery.min.js')

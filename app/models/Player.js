@@ -3,6 +3,7 @@ var Vote = require('../models/Vote.js');
 var Video = require('../models/Video.js');
 var bCrypt = require('bcrypt-nodejs');
 var pagination = require('../common/pagination.js');
+var q = require('q');
 
 module.exports = {
 
@@ -30,6 +31,20 @@ module.exports = {
       });
 
     });
+
+  },
+
+  last: function(qt, cb){
+    
+    var deferred = q.defer();
+
+    var promise = User.find().limit(qt).populate('team').sort('-_id').exec();
+    
+    promise.then(function(users) {
+      deferred.resolve(users);
+    });
+
+    return deferred.promise;
 
   },
 

@@ -42,7 +42,6 @@ module.exports = function (app) {
         cb.teamId  = '';
       }
 
-      console.log(cb);
       res.render('players/edit',{user:cb});  
     });
 

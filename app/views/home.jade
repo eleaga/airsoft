@@ -1,18 +1,23 @@
 extends layout
 
 block content
-	div.container
-		div.row
-			div.col-sm-6.col-md-4.col-md-offset-4
-				#user
-					h1.text-center.login-title Perfil de #{user.name}:
-						div.signup-wall
-							ul.user-details
-								li 
-									img(src=user.picture width="200px")
-								li Email    ---> #{user.email}
-								li Nome ---> #{user.name} 
-								li Time ---> #{user.team} 
-								li Tipo ---> #{user.type}
-						a(href='/player/edit', class='text-center new-account') Editar
-						a(href='/signout', class='text-center new-account') Sair
+
+  .row
+    .col.s12
+      h3 Ultimos Videos:
+      script console.log(videos)
+      - each video, i in videos
+        include players/block/youtube.jade
+
+  .row
+    .col.s12
+      h3 Ultimos Jogadores:
+
+      - each player, i in players
+        include players/players_list_block.jade
+
+  .row
+    .col.s12
+      h3 Ultimos Times:
+      - each team, i in teams
+        include team/block/list.jade

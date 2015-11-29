@@ -1,16 +1,23 @@
 extends ../layout
 
 block content
-    h1 #{team.name}
-    img( src=team.picture )
+    .row
+        .col.s12
+            h1 #{team.name}
+            img( src=team.picture class="responsive-img")
 
-    div.votes
-        span.vote(to=team._id value='1') (#{team.positive}) recomendar |  
-        span.vote(to=team._id value='0') (#{team.negative}) negativar
+            div.votes
+                span.vote(to=team._id value='1') (#{team.positive}) recomendar |  
+                span.vote(to=team._id value='0') (#{team.negative}) negativar
+            
 
-    h4 Fundador
-    p
-      a(href="/player/"+team.owner._id) #{team.owner.name}
+            if userIsOwner 
+                    a(href="edit/"+team._id class="btn") editar 
+                    a(href="delete/"+team._id class="btn") remover
+                    
+            h4 Fundador
+            p
+              a(href="/player/"+team.owner._id) #{team.owner.name}
 
     h4 Membros
     .row
