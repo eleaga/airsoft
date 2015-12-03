@@ -1,4 +1,6 @@
 var Video = require('../models/VideoSchema.js');
+var Youtube = require('../common/youtube.js');
+var q = require('q');
 var ObjectId = require('mongoose').Types.ObjectId; 
 
 module.exports = {
@@ -14,12 +16,28 @@ module.exports = {
 
   },
 
+  last: function(qt){
+
+    var deferred = q.defer();
+
+    var promise = Video.find().limit(qt).sort('-_id');
+    
+    promise.then(function(videos) {
+      deferred.resolve(videos);
+    });
+
+    return deferred.promise;
+  
+  },
+
   save: function(from, link, cb){
     if(link==''){
       cb(0);
     }else{
-      var video = new Video({from: from, link: link});
-
+      link = Youtube.youtubeParser(link);
+      if(link){
+        var video = new Video({from: from, link: link});
+      }
       video.save( function(error, data){
 
         if(error){
@@ -34,7 +52,7 @@ module.exports = {
   },
 
   remove: function(from, vid, cb){
-    Video.remove({ _id: new ObjectId(vid) }, function(err) {
+    Video.remove({$and: [ { _id: new ObjectId(vid), from: from } ] }, function(err) {
       cb(1);
     });
 

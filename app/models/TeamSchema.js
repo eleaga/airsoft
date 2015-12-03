@@ -16,7 +16,7 @@ var Schema   = new mongoose.Schema({
     type: String
   }, 
   recruiting: {
-    type: String 
+    type: Boolean 
   }, 
   email: {
     type: String 

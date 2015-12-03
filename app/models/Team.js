@@ -3,6 +3,7 @@ var Team = require('./TeamSchema.js');
 var pagination = require('../common/pagination.js');
 var User = require('../models/User.js');
 var ObjectId = require('mongoose').Types.ObjectId; 
+var q = require('q');
 
 module.exports = {
 
@@ -32,6 +33,20 @@ module.exports = {
 
   },
 
+  last: function(qt, cb){
+
+    var deferred = q.defer();
+
+    var promise = Team.find().limit(qt).sort('-_id');
+    
+    promise.then(function(teams) {
+      deferred.resolve(teams);
+    });
+
+    return deferred.promise;
+
+  },
+
   listByName: function(name, cb){
 
     var regex = new RegExp(name, 'i');
@@ -47,10 +62,8 @@ module.exports = {
 
   find: function(id, cb){
 
-
     var members = User.find({team: new ObjectId(id)}).exec();
     var promise = Team.findById(id).populate('owner').exec();
-
 
     promise
       .then(function(team) {
@@ -76,11 +89,33 @@ module.exports = {
 
   },
 
-  update: function(data, id){
+  update: function(fields, id, userId){
+    var deferred = q.defer();
 
-    Team.update({ _id: id }, data, { multi: false }, function(err) {
-      return true;
+    var promiseTime = Team.findById(id, function(err, team) {
+      
+        console.log('a')
+      if (err) {
+        deferred.reject(new Error("Can't do it"));
+        return deferred.promise;
+      }
+
+      if(team.owner!=userId){
+        deferred.reject(new Error("Can't do it"));
+        return deferred.promise;
+      }
+      else{
+        console.log(fields)
+        var data = {name: fields.name, city: fields.city, uf: fields.uf}
+        Team.update({ _id: id }, data, { multi: false }, function(err, teamCb) {
+          
+
+        });
+      }
     });
+
+    deferred.resolve(promiseTime);
+    return deferred.promise;
 
   },
 
@@ -99,8 +134,16 @@ module.exports = {
 
   },
 
+  remove: function(from, id, cb){
+    Team.remove( {$and: [  { _id: new ObjectId(id), owner: from } ] }, function(err) {
+      cb(1);
+    });
+
+  },
+
   image: function(id, image, cb){
       
+
     Team.update({ _id: id }, { picture: image }, { multi: false }, function(err) {
       
       return cb(true);

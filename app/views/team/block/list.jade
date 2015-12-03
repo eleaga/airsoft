@@ -1,0 +1,16 @@
+.col.s12.m6
+  .card.small
+    .card-image
+      a(href='/team/#{team._id}')
+        if(team.picture)
+          img(src=team.picture class="responsive-img")
+        else
+          img(src='/images/default-profile.png' class="responsive-img")
+
+      .card-title
+        a(href='/team/#{team._id}') #{team.name}
+
+      .card-content
+        p Cidade: #{team.city} 
+            if team.uf 
+              span - #{team.uf}

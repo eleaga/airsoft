@@ -2,8 +2,15 @@
 // User model logic.
 
 var neo4j = require('neo4j');
-var db = new neo4j.GraphDatabase('http://neo4j:root@localhost:7474');
 var errors = require('./errors');
+
+var db = new neo4j.GraphDatabase({
+    // Support specifying database info via environment variables,
+    // but assume Neo4j installation defaults.
+    url: process.env['NEO4J_URL'] || process.env['GRAPHENEDB_URL'] ||
+        'http://neo4j:neo4j@localhost:7474',
+    auth: process.env['NEO4J_AUTH'],
+});
 
 // Private constructor:
 
@@ -264,30 +271,7 @@ User.get = function (username, callback) {
             return callback(err);
         }
         var user = new User(results[0]['user']);
-        callback(null, user);
-    });
-};
-
-User.findById = function (id, callback) {
-    var query = [
-        'MATCH (u:User {id: {id}})',
-        'RETURN u',
-    ].join('\n')
-
-    var params = {
-        id: id,
-    };
-
-    db.cypher({
-        query: query,
-        params: params,
-    }, function (err, results) {
-        if (err) return callback(err);
-        if (!results.length) {
-            err = new Error('No such user with id: ' + id);
-            return callback(err);
-        }
-        var user = new User(results[0]['user']);
+        console.log();
         callback(null, user);
     });
 };
@@ -338,3 +322,15 @@ User.create = function (props, callback) {
         callback(null, user);
     });
 };
+
+db.createConstraint({
+    label: 'User',
+    property: 'username',
+}, function (err, constraint) {
+    if (err) throw err;     // Failing fast for now, by crash the application.
+    if (constraint) {
+        console.log('(Registered unique usernames constraint.)');
+    } else {
+        // Constraint already present; no need to log anything.
+    }
+})
