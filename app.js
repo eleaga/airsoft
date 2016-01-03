@@ -12,10 +12,9 @@ var formidable = require('formidable');
 var util = require('util');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
-mongoose.connect('mongodb://localhost:27017/airsoft');
-
+mongoose.connect('mongodb://'+process.env.HOST+'/'+process.env.DB);
+console.log('mongodb://'+process.env.HOST+'/'+process.env.DB);
 var app = express();
-
 // Configuring Passport
 // TODO - Why Do we need this key ?
 
@@ -89,7 +88,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (process.env.NODE_ENV === 'dev') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
